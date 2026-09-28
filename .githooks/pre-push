@@ -4,10 +4,10 @@ set -eu
 # A local mistake guard. The protected GitHub ruleset is the repository control.
 remote_url=${2:-}
 case "$remote_url" in
-  https://github.com/StewardFinancial/steward|https://github.com/StewardFinancial/steward.git)
+  https://github.com/battlebawt/steward-public|https://github.com/battlebawt/steward-public.git)
     ;;
   *)
-    echo 'Steward public push blocked: remote must be StewardFinancial/steward, not the private steward repository.' >&2
+    echo 'Steward public push blocked: remote must be battlebawt/steward-public, not the private steward repository.' >&2
     exit 1
     ;;
 esac
@@ -28,4 +28,4 @@ if [ "$author_name" != battlebawt ] || [ "$author_email" != '279315923+battlebaw
   exit 1
 fi
 
-echo 'Steward public identity check passed for StewardFinancial/steward.' >&2
+echo 'Steward public identity check passed for battlebawt/steward-public.' >&2
