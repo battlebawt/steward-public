@@ -250,7 +250,7 @@ async function run() {
       continuityPlanHash: ZERO_BYTES32,
     };
     await page.goto(`${webUrl}/start?mode=live`, { waitUntil: "networkidle" });
-    check(await page.getByRole("heading", { name: "Live sign-in" }).count() === 1, "live sign-in heading missing");
+    check(await page.getByRole("heading", { name: "Sign in to your account." }).count() === 1, "live sign-in heading missing");
     check(await page.getByLabel("Settlement token").count() === 1, "guided settlement field is not labelled");
     await page.keyboard.press("Tab");
     check(await page.locator(":focus").count() === 1, "keyboard focus did not land on a control");
