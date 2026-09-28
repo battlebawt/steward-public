@@ -1,0 +1,26 @@
+node_modules/
+.env
+.env.*
+!.env.example
+data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+web/dist/
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+tmp/
+.DS_Store
+*.tsbuildinfo
+*.demo-key
+config/live-manifest.json
+*.sqlite-journal
+coverage/
+playwright-report/
+test-results/
+config/*recipients*.json
+
+# Vendored public Solidity sources must override broad personal ignore rules.
+!contracts/lib/openzeppelin-contracts/token/
+!contracts/lib/openzeppelin-contracts/token/**

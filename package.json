@@ -1,0 +1,56 @@
+{
+  "name": "steward",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "bun run scripts/dev.ts",
+    "dev:server": "bun --watch server/src/index.ts",
+    "dev:web": "bun run --cwd web dev",
+    "build": "bun run typecheck && bun run --cwd web build",
+    "typecheck": "tsc -p shared/tsconfig.json --noEmit && tsc -p server/tsconfig.json --noEmit && tsc -p web/tsconfig.json --noEmit",
+    "test": "bun test shared server web scripts",
+    "test:contracts": "forge test --root contracts",
+    "verify": "bun run test:contracts && bun scripts/gen-abis.ts --check && bun run build && bun run test && bun run test:integration && bun run test:continuity && bun run test:browser && bun run test:browser:live",
+    "start": "bun server/src/index.ts",
+    "readiness": "bun scripts/readiness.ts",
+    "access-kit": "bun scripts/access-kit.ts",
+    "backup": "bun scripts/backup.ts",
+    "test:integration": "bun scripts/chain-integration.ts",
+    "gen:abis": "bun scripts/gen-abis.ts",
+    "test:browser": "bun scripts/browser-smoke.ts",
+    "deployment-plan": "bun scripts/deployment-plan.ts",
+    "provider:evidence": "bun scripts/provider-fork.ts",
+    "test:passkey": "bun scripts/chain-integration.ts --passkey-auth-only",
+    "test:continuity": "bun scripts/continuity-integration.ts",
+    "test:browser:live": "bun scripts/browser-live-rehearsal.ts",
+    "test:browser:live:v2": "bun scripts/browser-live-rehearsal.ts --v2",
+    "test:v2:local": "bun scripts/v2-enrollment-local.ts",
+    "test:container": "bun scripts/container-smoke.ts",
+    "maintenance": "bun scripts/maintenance.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.1139.0",
+    "@steward/shared": "workspace:*",
+    "hono": "^4.6.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.21.40",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.13",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "playwright": "1.63.0",
+    "railway": "3.11.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.5"
+  }
+}

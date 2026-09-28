@@ -1,0 +1,26 @@
+import { test, expect } from 'bun:test';
+import { LiveManifestSchema } from './manifest';
+const address='0x0000000000000000000000000000000000000001' as const;
+const hash=`0x${'11'.repeat(32)}` as `0x${string}`;
+test('deployment manifest rejects unpinned, duplicate, and secret-bearing configuration',()=>{
+  const base={chainId:4663,version:'reviewed-1',accounts:[],routes:[]};
+  expect(LiveManifestSchema.parse(base)).toEqual(base);
+  expect(()=>LiveManifestSchema.parse({...base,rpcUrl:'https://secret.invalid'})).toThrow();
+  expect(()=>LiveManifestSchema.parse({...base,factory:{address}})).toThrow();
+  const entry={address,runtimeCodeHash:hash,settlement:address,deploymentBlock:'1'};
+  expect(()=>LiveManifestSchema.parse({...base,accounts:[entry,entry]})).toThrow();
+  expect(()=>LiveManifestSchema.parse({...base,accounts:[{...entry,implementation:address}]})).toThrow();
+  const route={asset:address,provider:'reviewed-provider',legalInstrumentType:'tokenized_debt_security',sourceTermsVersion:'terms-1',adapter:address,adapterCodeHash:hash,quoter:address,fee:3000,session:'market'};
+  expect(LiveManifestSchema.parse({...base,routes:[route]}).routes).toHaveLength(1);
+  expect(()=>LiveManifestSchema.parse({...base,routes:[{...route,provider:undefined}]})).toThrow();
+  expect(()=>LiveManifestSchema.parse({...base,routes:[{...route,sourceTermsVersion:''}]})).toThrow();
+  expect(()=>LiveManifestSchema.parse({...base,routes:[route,route]})).toThrow();
+  const enrollmentToken={address,runtimeCodeHash:hash,symbol:'USDG',name:'Settlement token',decimals:6,provider:'reviewed-provider',sourceTermsVersion:'terms-1'};
+  expect(LiveManifestSchema.parse({...base,enrollmentTokens:[enrollmentToken]}).enrollmentTokens).toHaveLength(1);
+  expect(()=>LiveManifestSchema.parse({...base,enrollmentTokens:[enrollmentToken,enrollmentToken]})).toThrow();
+  expect(()=>LiveManifestSchema.parse({...base,enrollmentTokens:[{...enrollmentToken,runtimeCodeHash:undefined}]})).toThrow();
+  const factoryV2={address,runtimeCodeHash:hash,accountRuntimeCodeHash:hash,v1Implementation:address,v1ImplementationCodeHash:hash,cowModule:address,cowModuleCodeHash:hash,settlement:address,settlementCodeHash:hash,stockToken:address,stockTokenCodeHash:hash,priceGuard:address,priceGuardCodeHash:hash,relayer:address,relayerCodeHash:hash,maxFeeBps:'500'};
+  expect(LiveManifestSchema.parse({...base,factoryV2}).factoryV2).toEqual(factoryV2);
+  expect(()=>LiveManifestSchema.parse({...base,factoryV2:{...factoryV2,cowModuleCodeHash:undefined}})).toThrow();
+  expect(()=>LiveManifestSchema.parse({...base,factoryV2:{...factoryV2,maxFeeBps:'-1'}})).toThrow();
+});

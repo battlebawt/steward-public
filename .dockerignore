@@ -1,0 +1,8 @@
+.git
+node_modules
+.env*
+data
+tmp
+output
+contracts/out
+contracts/cache

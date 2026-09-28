@@ -1,0 +1,33 @@
+{
+  "manifestVersion": "steward-v1-unreleased",
+  "chainId": 4663,
+  "factory": null,
+  "accountRuntimeCodeHash": null,
+  "deploymentBlock": null,
+  "assets": [],
+  "gates": {
+    "G1_operating_market": {
+      "approved": false,
+      "evidence": "No launch market or asset chosen; require per-route customer market, operator role, issuer terms, individual eligibility and caregiver authority review; see docs/implementation/MARKET-ROUTES.md"
+    },
+    "G2_asset_integration": {
+      "approved": false,
+      "evidence": "Fork mechanics: docs/evidence/steward-mainnet-fork-2026-09-23.json; eligibility, route/liveness and no-sequencer reviews still required"
+    },
+    "G3_control_security": {
+      "approved": false,
+      "evidence": "Independent review and physical passkey tests required"
+    },
+    "G4_continuity": {
+      "approved": false,
+      "evidence": "Named reviewer, evidence rules and dispute authority required"
+    },
+    "G5_operations": {
+      "approved": false,
+      "evidence": "Gas, delivery verification and offsite restore drill required"
+    }
+  },
+  "factoryCodeHash": null,
+  "implementation": null,
+  "implementationCodeHash": null
+}

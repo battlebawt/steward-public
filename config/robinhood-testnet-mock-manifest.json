@@ -1,0 +1,29 @@
+{
+  "chainId": 46630,
+  "version": "steward-robinhood-testnet-mock-2026-09-23",
+  "accounts": [
+    {
+      "address": "0xdee2c04dbb5b1bf90267fd037e5b28315ee00fd8",
+      "runtimeCodeHash": "0x278f1da1c0afc144ffaec9bbf337086921a8d3661ab08df2d680bf34a1d41029",
+      "settlement": "0x9b2584b55969c783dc7e2560f9683810c3797c9b",
+      "deploymentBlock": "122918158",
+      "implementation": "0xc82fda94affcf10acd680b410b68508b4d3ce844",
+      "implementationCodeHash": "0xf573c264c7b2e79fc07518c340e898f33f313513cff3c032e9f1cf3f4d573ee2"
+    },
+    {
+      "address": "0x094fae8dbf5f0198bc148c1971f799d16e30e08b",
+      "runtimeCodeHash": "0x278f1da1c0afc144ffaec9bbf337086921a8d3661ab08df2d680bf34a1d41029",
+      "settlement": "0x9b2584b55969c783dc7e2560f9683810c3797c9b",
+      "deploymentBlock": "122978682",
+      "implementation": "0xc82fda94affcf10acd680b410b68508b4d3ce844",
+      "implementationCodeHash": "0xf573c264c7b2e79fc07518c340e898f33f313513cff3c032e9f1cf3f4d573ee2"
+    }
+  ],
+  "routes": [],
+  "factory": {
+    "address": "0x6b5287135fc3ab3efd52ba2a282d8f0190a938e4",
+    "runtimeCodeHash": "0x377e5a032098046ec770dfb283e4df25dabc0851f29c815b8436b5a2e62605ab",
+    "implementation": "0xc82fda94affcf10acd680b410b68508b4d3ce844",
+    "implementationCodeHash": "0xf573c264c7b2e79fc07518c340e898f33f313513cff3c032e9f1cf3f4d573ee2"
+  }
+}

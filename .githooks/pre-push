@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+
+# A local mistake guard. The protected GitHub ruleset is the repository control.
+remote_url=${2:-}
+case "$remote_url" in
+  https://github.com/battlebawt/steward-public|https://github.com/battlebawt/steward-public.git)
+    ;;
+  *)
+    echo 'Steward public push blocked: remote must be battlebawt/steward-public, not the private steward repository.' >&2
+    exit 1
+    ;;
+esac
+
+if ! login=$(gh api user --jq .login 2>/dev/null); then
+  echo 'Steward public push blocked: sign in to GitHub CLI as battlebawt.' >&2
+  exit 1
+fi
+if [ "$login" != battlebawt ]; then
+  echo "Steward public push blocked: active GitHub account is $login, not battlebawt." >&2
+  exit 1
+fi
+
+author_name=$(git config --get user.name || true)
+author_email=$(git config --get user.email || true)
+if [ "$author_name" != battlebawt ] || [ "$author_email" != '279315923+battlebawt@users.noreply.github.com' ]; then
+  echo 'Steward public push blocked: local Git author must be battlebawt with the expected noreply email.' >&2
+  exit 1
+fi
+
+echo 'Steward public identity check passed for battlebawt/steward-public.' >&2
